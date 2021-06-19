@@ -47,11 +47,11 @@
 %% the 1st when using pdflatex, which directly typesets your document in
 %% pdf (use jpg or pdf figures), or
 %% the 2nd when producing a ps file (use eps figures, don't use ps figures!).
-\documentclass[english,12pt,a4paper,pdftex,sci,utf8]{aaltothesis}
+\documentclass[english,12pt,a4paper,pdftex,econ,utf8]{aaltothesis}
 %\documentclass[english,12pt,a4paper,dvips]{aaltothesis}
 
 %% To the \documentclass above
-%% specify your school: arts, biz, chem, elec, eng, sci
+%% specify your school: arts, biz, chem, elec, eng, sci, econ
 %% specify the character encoding scheme used by your editor: utf8, latin1
 
 %% Use one of these if you write in Finnish (see the Finnish template):
@@ -78,7 +78,24 @@
   pdftitle={Default Title, Modify},pdfauthor={Your Name},
   pdfkeywords={Modify keywords}}
 
+\usepackage{comment}
+\hypersetup{
+    colorlinks=true,
+     filecolor=blue,
+     linkcolor=black,
+     citecolor = red,
+     urlcolor=blue,
+}
+\usepackage[
+    backend=biber,
+    sorting=nyt
+]{biblatex}
+\addbibresource{library.bib}
 
+%----------------- NEW COMMANDS -----------------
+\newcommand{\indep}{\perp \!\!\! \perp}
+\newcommand{\dsep}{\stackrel{d}{\indep}}
+%------------------------------------------------
 %% All that is printed on paper starts here
 \begin{document}
 
@@ -96,19 +113,19 @@
 %% ONLY FOR M.Sc. AND LICENTIATE THESIS: Specify your department,
 %% professorship and professorship code. 
 %%
-\department{Department of Radio Science and Technology}
-\professorship{Circuit theory}
+\department{Department of Economics}
+%\professorship{Circuit theory}
 %%
 
 %% Valitse yksi näistä kolmesta
 %%
 %% Choose one of these:
-%\univdegree{BSc}
-\univdegree{MSc}
+\univdegree{BSc}
+%\univdegree{MSc}
 %\univdegree{Lic}
 
 %% Your own name (should be self explanatory...)
-\author{Teemu Teekkari}
+\author{Santeri Väätäjä}
 
 %% Your thesis title comes here and again before a possible abstract in
 %% Finnish or Swedish . If the title is very long and latex does an
@@ -116,14 +133,14 @@
 %% linebreak with the \\ control character. 
 %% Do not hyphenate titles.
 %% 
-\thesistitle{Thesis template}
+\thesistitle{Directed asyclical graph causal inference \\ \small Applications in econometrics}
 
 \place{Espoo}
 
 %% For B.Sc. thesis use the date when you present your thesis. 
 %% 
 %% Kandidaatintyön päivämäärä on sen esityspäivämäärä! 
-\date{16.1.2015}
+\date{24.8.2021}
 
 %% B.Sc. or M.Sc. thesis supervisor 
 %% Note the "\" after the comma. This forces the following space to be 
@@ -132,14 +149,14 @@
 %% should be followed by a slightly longer space but is to be followed
 %% by a regular space.
 %%
-\supervisor{Prof.\ Pirjo Professori} %{Prof.\ Pirjo Professori}
+\supervisor{Prof. Pauli Murto} %{Prof.\ Pirjo Professori}
 
 %% B.Sc. or M.Sc. thesis advisors(s). You can give upto two advisors in
 %% this template. Check with your supervisor how many official advisors
 %% you can have.
 %%
 %\advisor{Prof.\ Pirjo Professori}
-\advisor{D.Sc.\ (Tech.) Olli Ohjaaja}
+\advisor{Asst. Prof. Ciprian Domnisoru}
 %\advisor{M.Sc.\ Polli Pohjaaja}
 
 %% Aalto logo: syntax:
@@ -272,36 +289,46 @@ Otaniemi, 16.1.2015
 \subsection*{Symbols}
 
 \begin{tabular}{ll}
-$\mathbf{B}$  & magnetic flux density  \\
-$c$              & speed of light in vacuum $\approx 3\times10^8$ [m/s]\\
-$\omega_{\mathrm{D}}$    & Debye frequency \\
-$\omega_{\mathrm{latt}}$ & average phonon frequency of lattice \\
-$\uparrow$       & electron spin direction up\\
-$\downarrow$     & electron spin direction down
+$V$ & Vertices \\
+$\tau$ & graph
+\begin{comment}
+    $\mathbf{B}$  & magnetic flux density  \\
+    $c$              & speed of light in vacuum $\approx 3\times10^8$ [m/s]\\
+    $\omega_{\mathrm{D}}$    & Debye frequency \\
+    $\omega_{\mathrm{latt}}$ & average phonon frequency of lattice \\
+    $\uparrow$       & electron spin direction up\\
+    $\downarrow$     & electron spin direction down
+\end{comment}
 \end{tabular}
 
 \subsection*{Operators}
 
 \begin{tabular}{ll}
-$\nabla \times \mathbf{A}$              & curl of vectorin $\mathbf{A}$\\
-$\displaystyle\frac{\mbox{d}}{\mbox{d} t}$ & derivative with respect to 
-variable $t$\\[3mm]
-$\displaystyle\frac{\partial}{\partial t}$  & partial derivative with respect 
-to variable $t$ \\[3mm]
-$\sum_i $                       & sum over index $i$\\
-$\mathbf{A} \cdot \mathbf{B}$    & dot product of vectors $\mathbf{A}$ and 
-$\mathbf{B}$
+$\indep$ & independency \\
+$\dsep$ & d-separation
+\begin{comment}
+    $\nabla \times \mathbf{A}$              & curl of vectorin $\mathbf{A}$\\
+    $\displaystyle\frac{\mbox{d}}{\mbox{d} t}$ & derivative with respect to 
+    variable $t$\\[3mm]
+    $\displaystyle\frac{\partial}{\partial t}$  & partial derivative with respect 
+    to variable $t$ \\[3mm]
+    $\sum_i $                       & sum over index $i$\\
+    $\mathbf{A} \cdot \mathbf{B}$    & dot product of vectors $\mathbf{A}$ and 
+    $\mathbf{B}$
+\end{comment}
 \end{tabular}
 
 \subsection*{Abbreviations}
-
 \begin{tabular}{ll}
-AC         & alternating current \\
-APLAC      & an object-oriented analog circuit simulator and design tool \\
-           & (originally Analysis Program for Linear Active Circuits) \\
-BCS        & Bardeen-Cooper-Schrieffer \\ %% dash between the names
-DC         & direct current \\
+DAG & directed asyclical graph
+\begin{comment}
+    AC         & alternating current \\
+    APLAC      & an object-oriented analog circuit simulator and design tool \\
+               & (originally Analysis Program for Linear Active Circuits) \\
+    BCS        & Bardeen-Cooper-Schrieffer \\ %% dash between the names
+    DC         & direct current \\
 TEM        & transverse eletromagnetic
+\end{comment}
 \end{tabular}
 
 
@@ -342,5 +369,6 @@ TEM        & transverse eletromagnetic
 %% In a thesis, every section starts a new page, hence \clearpage
 \clearpage
 
+\printbibliography
 
 \end{document}
