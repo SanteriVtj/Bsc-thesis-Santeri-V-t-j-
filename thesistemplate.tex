@@ -95,6 +95,7 @@
 %----------------- NEW COMMANDS -----------------
 \newcommand{\indep}{\perp \!\!\! \perp}
 \newcommand{\dsep}{\stackrel{d}{\indep}}
+\let\emptyset\varnothing
 %------------------------------------------------
 %% All that is printed on paper starts here
 \begin{document}
@@ -242,6 +243,8 @@
 %
 %% Swedish abstract. Delete if you don't need it. 
 %% 
+\begin{comment}
+    
 \thesistitle{Arbetets titel}
 \advisor{TkD Olli Ohjaaja} %
 \degreeprogram{Electronik och electroteknik}
@@ -257,9 +260,12 @@
  the methods you have used, and the results you obtained.  
 \end{abstractpage}
 
+\end{comment}
 %% Preface
 %%
 %% Esipuhe 
+\begin{comment}
+    
 \mysection{Preface}
 %\mysection{Esipuhe}
 I want to thank Professor Pirjo Professori
@@ -277,6 +283,7 @@ Otaniemi, 16.1.2015
 %% Pakotetaan varmuuden vuoksi esipuheen jälkeinen osa
 %% alkamaan uudelta sivulta
 \newpage
+\end{comment}
 
 
 %% Table of contents. 
@@ -289,8 +296,10 @@ Otaniemi, 16.1.2015
 \subsection*{Symbols}
 
 \begin{tabular}{ll}
-$V$ & Vertices \\
-$\tau$ & graph
+$V$ & vertices \\
+$\tau$ & graph containing $\{X_{1},X_{2},...,X_{N}\}$ variables or nodes \\
+$\emptyset$ & graph with no nodes or vertices \\
+$\mathcal{Z}$ & subset of graph
 \begin{comment}
     $\mathbf{B}$  & magnetic flux density  \\
     $c$              & speed of light in vacuum $\approx 3\times10^8$ [m/s]\\
@@ -305,7 +314,10 @@ $\tau$ & graph
 
 \begin{tabular}{ll}
 $\indep$ & independency \\
-$\dsep$ & d-separation
+$\dsep$ & d-separation \\
+$Pa(\circ)$ & parents of given node \\
+$Ch(\circ)$ & children of given node \\
+$D(\circ)$ & descendants of given node \\
 \begin{comment}
     $\nabla \times \mathbf{A}$              & curl of vectorin $\mathbf{A}$\\
     $\displaystyle\frac{\mbox{d}}{\mbox{d} t}$ & derivative with respect to 
