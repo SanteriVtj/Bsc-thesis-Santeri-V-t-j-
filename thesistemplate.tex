@@ -48,6 +48,8 @@
 %% pdf (use jpg or pdf figures), or
 %% the 2nd when producing a ps file (use eps figures, don't use ps figures!).
 \documentclass[main=english,12pt,a4paper,pdftex,econ,utf8]{aaltothesis}
+\usepackage{comment}
+\usepackage{capt-of}
 %\documentclass[english,12pt,a4paper,dvips]{aaltothesis}
 
 %% To the \documentclass above
@@ -104,8 +106,6 @@
     urlcolor=blue
 }
 
-\usepackage{comment}
-\usepackage{caption}
 \usepackage[
     backend=biber,
     sorting=nyt,
@@ -118,6 +118,11 @@
 \newcommand{\indep}{\perp \!\!\! \perp}
 \newcommand{\dsep}{\stackrel{d}{\indep}}
 \let\emptyset\varnothing
+\newcommand{\varset}{\bm{V}}
+\newcommand{\edgeset}{\bm{\epsilon}}
+\newcommand{\ch}[1]{Ch(#1)}
+\newcommand{\pa}[1]{Pa(#1)}
+\newcommand{\de}[1]{De(#1)}
 %------------------------------------------------
 %% All that is printed on paper starts here
 \begin{document}
@@ -312,9 +317,11 @@ Otaniemi, 16.1.2015
 \end{comment}
 
 
-%% Table of contents. 
+%% Table of contents.
+{
+\hypersetup{linkcolor=blank}
 \thesistableofcontents
-
+}
 
 %% Symbols and abbreviations
 \mysection{Symbols and abbreviations}
@@ -322,18 +329,19 @@ Otaniemi, 16.1.2015
 \subsection*{Symbols}
 
 \begin{tabular}{ll}
-$\textbf{V}$ & set of vertices containing finite amount of vertices $\{V_{1},V_{2},...,V_{N}\}$ \\
-$\bm{\epsilon}$ & set of edges containing finite amount of edges $\{\epsilon_{1},\epsilon_{2},...,\epsilon_{N}\}$ \\
+$\bm{V}$ & set of vertices $\{V_{1},V_{2},\ldots,V_{N}\}$ \\
+$\bm{U}$ & set of unobserved variables $\{U_{1},U_{2},\ldots,U_{N}\}$ \\
+$\bm{\epsilon}$ & set of edges $\{\epsilon_{1},\epsilon_{2},\ldots,\epsilon_{N}\}$ \\
 $\emptyset$ & graph with no nodes or vertices \\
 $\mathcal{G}$ & graph \\
 $\mathcal{Z}$ & subset of graph
 \begin{comment}
-    $\mathbf{B}$  & magnetic flux density  \\
-    $c$              & speed of light in vacuum $\approx 3\times10^8$ [m/s]\\
-    $\omega_{\mathrm{D}}$    & Debye frequency \\
-    $\omega_{\mathrm{latt}}$ & average phonon frequency of lattice \\
-    $\uparrow$       & electron spin direction up\\
-    $\downarrow$     & electron spin direction down
+$\mathbf{B}$  & magnetic flux density  \\
+$c$              & speed of light in vacuum $\approx 3\times10^8$ [m/s]\\
+$\omega_{\mathrm{D}}$    & Debye frequency \\
+$\omega_{\mathrm{latt}}$ & average phonon frequency of lattice \\
+$\uparrow$       & electron spin direction up\\
+$\downarrow$     & electron spin direction down
 \end{comment}
 \end{tabular}
 
@@ -342,30 +350,31 @@ $\mathcal{Z}$ & subset of graph
 \begin{tabular}{ll}
 $\indep$ & independency \\
 $\dsep$ & d-separation \\
-$Pa(\circ)$ & parents of given node \\
-$Ch(\circ)$ & children of given node \\
-$D(\circ)$ & descendants of given node \\
+$\pa{\circ}$ & parents of given node \\
+$\ch{\circ}$ & children of given node \\
+$\de{\circ}$ & descendants of given node
 \begin{comment}
-    $\nabla \times \mathbf{A}$              & curl of vectorin $\mathbf{A}$\\
-    $\displaystyle\frac{\mbox{d}}{\mbox{d} t}$ & derivative with respect to 
-    variable $t$\\[3mm]
-    $\displaystyle\frac{\partial}{\partial t}$  & partial derivative with respect 
-    to variable $t$ \\[3mm]
-    $\sum_i $                       & sum over index $i$\\
-    $\mathbf{A} \cdot \mathbf{B}$    & dot product of vectors $\mathbf{A}$ and 
-    $\mathbf{B}$
+$\nabla \times \mathbf{A}$              & curl of vectorin $\mathbf{A}$\\
+$\displaystyle\frac{\mbox{d}}{\mbox{d} t}$ & derivative with respect to 
+variable $t$\\[3mm]
+$\displaystyle\frac{\partial}{\partial t}$  & partial derivative with respect 
+to variable $t$ \\[3mm]
+$\sum_i $                       & sum over index $i$\\
+$\mathbf{A} \cdot \mathbf{B}$    & dot product of vectors $\mathbf{A}$ and 
+$\mathbf{B}$
 \end{comment}
 \end{tabular}
 
 \subsection*{Abbreviations}
 \begin{tabular}{ll}
-DAG & directed acyclic graph
+DAG & directed acyclic graph \\
+DCG & directed cyclic graph
 \begin{comment}
-    AC         & alternating current \\
-    APLAC      & an object-oriented analog circuit simulator and design tool \\
-               & (originally Analysis Program for Linear Active Circuits) \\
-    BCS        & Bardeen-Cooper-Schrieffer \\ %% dash between the names
-    DC         & direct current \\
+AC         & alternating current \\
+APLAC      & an object-oriented analog circuit simulator and design tool \\
+           & (originally Analysis Program for Linear Active Circuits) \\
+BCS        & Bardeen-Cooper-Schrieffer \\ %% dash between the names
+DC         & direct current \\
 TEM        & transverse eletromagnetic
 \end{comment}
 \end{tabular}
@@ -416,13 +425,21 @@ However in DAG approach there also exists also many problems that have led to th
 
 \subsection{Directed acyclic graph as structure}
 
-DAG's are at simplest just set of variables $\textbf{V}$ that have some extra restrictions regarding the way those are connected. These restrictions are defining possible relations for the variables of the graph in hand as well as defining not permitted structures in the topological path. Paths build up from the edges contained in $\bm{\epsilon}$ which contain the relational information of graph. Edges thus have in this case property of direction. As the edges are directed those clearly are not symmetric relations since $\bm{\epsilon}\subseteq V^2\setminus(i,i)$ where $\epsilon_i=(i,j)\neq(j,i)$. When the graph is directed it leads to the topological ordering necessarily being proceeding at every point and never having an edge leading backwards in order as figure \ref{fig:topological order} shows \cite{Peters2017}. 
+DAG's are at simplest just set containing variables $\varset$ that have some extra restrictions regarding the way nodes are connected withing the graph, but can in principle be any random variables otherwise. These restrictions are defining the set of possible relations for the variables of the graph in hand as well as defining not permitted structures in the topological path. Paths build up from the edges contained in $\edgeset$ which contain the relational information of graph. Edges thus have in case of DAG's property of direction and information on the vertex where it begins as well as where it ends. Edges and directions of a graph are not symmetric relations in case of DAG's since $\edgeset\subseteq V^2\setminus(i,i)$ where $\epsilon_i=(i,j)\neq(j,i)$ which is necessary but not sufficient condition for acyclicity. When the graph is directed it leads to the topological ordering necessarily being proceeding at every point and never having an edge leading backwards in order as Table \ref{tab:topological} shows (\cite{Peters2017}).
 
 \input{topological_ordering}
 
-In this thesis specially directed and acyclic graphs are discussed and thus edges have the direction information, or the information of in which direction each edge can be travelled. Acyclicity means that one vertex cannot exist twice in any possible path. In case vertex would exist twice in path it also could appear infinitely many times in path due to the nature of cycles, which radically reduces the amount of algorithms that can be applied to the graph as well as the assumptions that can be made in the context of the graph that allows the statistical interpretations and thus also prevents the causal inference methods to be used. If there would exist cycles the graph would thus be only directed.
+In this thesis specially directed and acyclic graphs are discussed and thus edges have the direction information, or the information of in which direction each edge can be travelled. Acyclicity means that one vertex cannot exist twice in any possible path. In case vertex would exist twice in path it also could appear infinitely many times in path due to the nature of cycles, which radically reduces the amount of algorithms that can be applied to the graph as well as the assumptions that can be made in the context of the graph that allows the statistical interpretations and thus also prevents the causal inference methods to be used. If there would exist cycles the graph would thus be directed cyclical graph and as such fundamentally non recursive which would break some of the relationships that DAG's have and which will be discussed in more detail later (\cite{Heckman2015}). In other words cyclicity introduces feedback mechanism for the structure which would lead to the graph not being non recursive and variable within the graph could affect itself. 
 
-\subsection{Causal inference in context of directed acyclical graphs}
+\subsection{Graph operators}
+
+As graphs have additional conditions defined compared to normal set object there also exists operators that graphs has also defined for them. These operators are also necessary for the causal analysis as these give tools for analyze and define parts of graph differing from the rest.
+
+First concept to know is a path. Path in directed graph consists of variables that have consecutive edges connecting them so that for every variable in path $V_{i}\rightarrow V_{i+1}$, these of course also have role in causal inference as they describe the routes that causal relationships are influencing. Also tightly connected to paths are the colliders, which always exist in relation to the path. Collider of path is structure where aforementioned condition doesn't hold so $V_{i}\rightarrow V_{i-1}$. Example of such can be seen in Table \ref{tab:topological}s DAG where path from $V_{1}$ to $V_{3}$ has path $V_{1}\rightarrow V_{3}$ where no collider exist but the two other paths clearly has colliders as $V_{1}\rightarrow V_{2}\rightarrow V_{4}\rightarrow V_{5}\leftarrow V_{3}$ has $V_{5}$ as collider and $V_{1}\rightarrow V_{2}\rightarrow V_{4}\leftarrow V_{3}$ has $V_{4}$ as collider.
+
+With paths it is possible define further relations for vertices in graph. These operators are also needed to analyze the causality in in graphs since those enable distinguishing independencies in graph and to define thus the estimates. Ancestor of variable $V$ in directed graph is such other variable which is appearing before $V$ in topological order and it has direct path to $V$. If vertex is appearing only one edge before $V$ it is called parent node and set of parents is denoted as $\pa{\circ}$. Respectively if there is direct path from $V$ to some other vertex it is called its descendant and it set of descendants is denoted by $\de{\circ}$ and if there is path only one edge long it is children $\ch{\circ}$.
+
+\section{Directed acyclical graphs for statistics and causal inference}
 
 To use DAG's for causal inference graphs must be given some more properties than just variables and edges. Variables or vertices can be interpreted
 

@@ -1,23 +1,38 @@
-\begin{center}
+\vspace{.5cm}
+\begin{table}[h]
+    \centering
     \begin{tabular}{c|c}
         \begin{tikzpicture}
-            \node (v0) at (0,0) {$X1$};
-            \node (v1) at (1.5,0) {$X2$};
-            \draw [->] (v0) edge (v1);
-        \end{tikzpicture}\\
-         &  
-        \begin{tikzpicture}
-            \draw (0,0) node[circleobject] (1) {$V_1$};
-            \draw (1.5,0) node[circleobject] (2) {$V_2$};
-            \draw (3,0) node[circleobject] (3) {$V_3$};
-            \draw (4.5,0) node[circleobject] (4) {$V_4$};
-            \draw (6,0) node[circleobject] (5) {$V_5$};
-            \draw[-latex]  (1) edge (2);
-            \draw[-latex,bend right]  (1) edge (3);
-            \draw[-latex,bend right]  (3) edge (5);
-            \draw[-latex,bend left]  (2) edge (4);
+            \node (1) at (0,0) {$V_1$};
+            \node (2) at (1.5,.8) {$V_2$};
+            \node (3) at (1.5,-.8) {$V_3$};
+            \node (4) at (3,.8) {$V_4$};
+            \node (5) at (3,-.8) {$V_5$};
+            \draw[->]  (1) edge (2);
+            \draw[->]  (1) edge (3);
+            \draw[->]  (2) edge (4);
+            \draw[->]  (3) edge (5);
+            \draw[->]  (3) edge (4);
+            \draw[->]  (4) edge (5);
         \end{tikzpicture}
-        \captionof{figure}{Topological order of graph}
-        \label{fig:topological order}
+        \hspace{.5cm}
+        &
+        \hspace{.5cm}
+        \begin{tikzpicture}
+            \node (1) at (0,0) {$V_1$};
+            \node (2) at (1.5,0) {$V_2$};
+            \node (3) at (3,0) {$V_3$};
+            \node (4) at (4.5,0) {$V_4$};
+            \node (5) at (6,0) {$V_5$};
+            \draw[->]  (1) edge (2);
+            \draw[->,bend right]  (1) edge (3);
+            \draw[->,bend right]  (3) edge (5);
+            \draw[->,bend left]  (2) edge (4);
+            \draw[->]  (3) edge (4);
+            \draw[->]  (4) edge (5);
+        \end{tikzpicture}
     \end{tabular}
-\end{center}
+    \caption{DAG and its topological ordering.}
+    \label{tab:topological}
+\end{table}
+\vspace{.5cm}
