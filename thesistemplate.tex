@@ -47,7 +47,7 @@
 %% the 1st when using pdflatex, which directly typesets your document in
 %% pdf (use jpg or pdf figures), or
 %% the 2nd when producing a ps file (use eps figures, don't use ps figures!).
-\documentclass[english,12pt,a4paper,pdftex,econ,utf8]{aaltothesis}
+\documentclass[main=english,12pt,a4paper,pdftex,econ,utf8]{aaltothesis}
 %\documentclass[english,12pt,a4paper,dvips]{aaltothesis}
 
 %% To the \documentclass above
@@ -62,8 +62,9 @@
 \usepackage{graphicx}
 
 %% Use this if you write hard core mathematics, these are usually needed
-\usepackage{amsfonts,amssymb,amsbsy}
-
+\usepackage{amsfonts,amssymb,amsbsy, bm}
+\usepackage{color, soul}
+\usepackage{pst-node, auto-pst-pdf}
 %% Use the macros in this package to change how the hyperref package below 
 %% typesets its hypertext -- hyperlink colour, font, etc. See the package
 %% documentation. It also defines the \url macro, so use the package when 
@@ -72,26 +73,47 @@
 %\usepackage{url}
 
 %% Use this if you want to get links and nice output. Works well with pdflatex.
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{forest}
+\usetikzlibrary{arrows,trees,positioning}
+\tikzstyle{circleobject}=[circle,fill=white,draw,line width=0.5mm]
+\tikzstyle{line}=[draw]
+\tikzstyle{arrow}=[draw, -latex]
+
+
+\tikzset{%
+    /forest,
+    forest node/.style={circle, inner sep=0pt, text centered},
+    arn n/.append style={text=white, font=\sffamily\bfseries, draw=black, text width=1.5em},
+    arn r/.append style={text=red, draw=red, text width=1.5em, very thick},
+  }
 \usepackage{hyperref}
-\hypersetup{pdfpagemode=UseNone, pdfstartview=FitH,
-  colorlinks=true,urlcolor=red,linkcolor=blue,citecolor=black,
-  pdftitle={Default Title, Modify},pdfauthor={Your Name},
-  pdfkeywords={Modify keywords}}
+\usepackage{csquotes}
+\hypersetup{
+    pdfpagemode=UseNone, 
+    colorlinks=true,
+    filecolor=blue,
+    pdfstartview=FitH,
+    urlcolor=blue,
+    linkcolor=red,
+    citecolor=black,
+    pdftitle={Default Title, Modify},
+    pdfauthor={Your Name},
+    pdfkeywords={Modify keywords},
+    urlcolor=blue
+}
 
 \usepackage{comment}
-\hypersetup{
-    colorlinks=true,
-     filecolor=blue,
-     linkcolor=black,
-     citecolor = red,
-     urlcolor=blue,
-}
+\usepackage{caption}
 \usepackage[
     backend=biber,
-    sorting=nyt
+    sorting=nyt,
+    style=authoryear
 ]{biblatex}
 \addbibresource{library.bib}
-
+\addbibresource{manual.bib}
+\linespread{1.5}
 %----------------- NEW COMMANDS -----------------
 \newcommand{\indep}{\perp \!\!\! \perp}
 \newcommand{\dsep}{\stackrel{d}{\indep}}
@@ -108,7 +130,7 @@
 % \school{School of Electrical Engineering}
 
 %% Only for B.Sc. thesis: Choose your degree programme. 
-%\degreeprogram{Electronics and electrical engineering}
+\degreeprogram{Bachelor's Programme in Economics}
 %%
 
 %% ONLY FOR M.Sc. AND LICENTIATE THESIS: Specify your department,
@@ -125,6 +147,8 @@
 %\univdegree{MSc}
 %\univdegree{Lic}
 
+
+
 %% Your own name (should be self explanatory...)
 \author{Santeri Väätäjä}
 
@@ -134,7 +158,7 @@
 %% linebreak with the \\ control character. 
 %% Do not hyphenate titles.
 %% 
-\thesistitle{Directed asyclical graph causal inference \\ \small Applications in econometrics}
+\thesistitle{Directed acyclic graph causal inference \\ \small Applications in econometrics}
 
 \place{Espoo}
 
@@ -208,6 +232,7 @@
 %% Pakotetaan uusi sivu varmuuden vuoksi, jotta 
 %% mahdollinen suomenkielinen ja englanninkielinen tiivistelmä
 %% eivät tule vahingossakaan samalle sivulle
+\begin{comment}
 \newpage
 %
 %% Abstract in Finnish.  Delete if you don't need it. 
@@ -238,6 +263,7 @@
   sekä mitä tuloksia on saatu. 
 \end{abstractpage}
 
+\end{comment}
 %% Force new page so that the Swedish abstract starts from a new page
 \newpage
 %
@@ -296,9 +322,10 @@ Otaniemi, 16.1.2015
 \subsection*{Symbols}
 
 \begin{tabular}{ll}
-$V$ & vertices \\
-$\tau$ & graph containing $\{X_{1},X_{2},...,X_{N}\}$ variables or nodes \\
+$\textbf{V}$ & set of vertices containing finite amount of vertices $\{V_{1},V_{2},...,V_{N}\}$ \\
+$\bm{\epsilon}$ & set of edges containing finite amount of edges $\{\epsilon_{1},\epsilon_{2},...,\epsilon_{N}\}$ \\
 $\emptyset$ & graph with no nodes or vertices \\
+$\mathcal{G}$ & graph \\
 $\mathcal{Z}$ & subset of graph
 \begin{comment}
     $\mathbf{B}$  & magnetic flux density  \\
@@ -332,7 +359,7 @@ $D(\circ)$ & descendants of given node \\
 
 \subsection*{Abbreviations}
 \begin{tabular}{ll}
-DAG & directed asyclical graph
+DAG & directed acyclic graph
 \begin{comment}
     AC         & alternating current \\
     APLAC      & an object-oriented analog circuit simulator and design tool \\
@@ -373,8 +400,31 @@ TEM        & transverse eletromagnetic
 %% Leave first page empty
 \thispagestyle{empty}
 
+Declaring causal inference has been for a long time debated area, in social sciences in general, and respectively in economics. It is naturally very interesting for scientists across the fields to establish more profound connections than correlation to events affecting their studies. It also works as a way for economists to have larger effect on society as it enables policy advises to have more solid foundation on the effects of particular policy changes studied and research to identify relations of the particular events that can be interpreted as causal.
 
+In this thesis I am going to give an overview on a one of such a methods that can be used to infer causal connections from data. This thesis will especially focus on the issue of how it could be applied in econometric applications specifically and what are the problems there is still to work out for it to be used if at all. The method discussed here, directed acyclic graph (DAG) causal inference, is a method used in multiple fields including computer science and epidemiology, but have had smaller role in social sciences. However in recent years there has been more interest also from these fields for example one of the main advocates of this method and scientist in computer science who have done lots of work with this method, Judea Pear and who --- quite strongly --- feels that DAG methods should be used also in economics (\cite{pearl_2014}) and Guido Imbens an economist have had some conversations over articles (\cite{Imbens2014}) about the suitability of the method in economics and social sciences.
 
+To observe such relation between events that could be interpret as causal, usually some kind of \textit{counterfactual} must be formed, where some alternative reality differing from the observed world in which some of the causal factors have been changed. This is achieved by some model where the outcome is also differing from the observed world and in which we can then study the effects of changing those factors. This is also the case in directed acyclic graph approach. World which is formed in process is of course impossible to observe as it is by definition in someway differing from the existing world to show the different outcome and needs some model that tries to mimic it.
+
+For all social scientists and economists this kind of tools that enable them to induce causal relationships are very useful as they try to identify causes of certain events which might have some implications for choosing optimal policies in level of governments or in smaller units of society like companies. For example \cite{Ji2018} tried to find the factors affecting natural gas prices in the United States. This kind of research, enabled by causal inference, can easily be seen as very useful and in case of energy prices could be used for example to form better mechanisms for example for emissions trading or other market mechanisms. By identifying the causal relations better policy makers have better information in hand to use for their policy decisions. 
+
+However in DAG approach there also exists also many problems that have led to the situation that it is still reasonably rarely used in economic applications and the potential outcome framework with models such as Rubin causal model have been the standard option. Some things that causing problems in econometric uses has been for example the difficulty to implement monotonicity within the DAG framework and which is needed for example when instruments are used for causal inference and overall the lack of advantages of graphical approach in questions that economics is mostly addressing (\cite{Imbens2014}). \hl{Problems from Heckman}
+
+\noindent \hl{ROADMAP}
+
+\section{Overview of directed acyclic graphs}
+
+\subsection{Directed acyclic graph as structure}
+
+DAG's are at simplest just set of variables $\textbf{V}$ that have some extra restrictions regarding the way those are connected. These restrictions are defining possible relations for the variables of the graph in hand as well as defining not permitted structures in the topological path. Paths build up from the edges contained in $\bm{\epsilon}$ which contain the relational information of graph. Edges thus have in this case property of direction. As the edges are directed those clearly are not symmetric relations since $\bm{\epsilon}\subseteq V^2\setminus(i,i)$ where $\epsilon_i=(i,j)\neq(j,i)$. When the graph is directed it leads to the topological ordering necessarily being proceeding at every point and never having an edge leading backwards in order as figure \ref{fig:topological order} shows \cite{Peters2017}. 
+
+\input{topological_ordering}
+
+In this thesis specially directed and acyclic graphs are discussed and thus edges have the direction information, or the information of in which direction each edge can be travelled. Acyclicity means that one vertex cannot exist twice in any possible path. In case vertex would exist twice in path it also could appear infinitely many times in path due to the nature of cycles, which radically reduces the amount of algorithms that can be applied to the graph as well as the assumptions that can be made in the context of the graph that allows the statistical interpretations and thus also prevents the causal inference methods to be used. If there would exist cycles the graph would thus be only directed.
+
+\subsection{Causal inference in context of directed acyclical graphs}
+
+To use DAG's for causal inference graphs must be given some more properties than just variables and edges. Variables or vertices can be interpreted
 
 %% Opinn\"aytteess\"a jokainen osa alkaa uudelta sivulta, joten \clearpage
 %%

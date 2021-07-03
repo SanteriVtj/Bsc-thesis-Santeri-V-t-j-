@@ -768,7 +768,7 @@
        }%
      }%
    }%
-   \begin{minipage}[t][133mm]{\abstractwidth}%
+   \begin{minipage}[t][105mm]{\abstractwidth}%
    \ifthenelse{\equal{\MainLang}{\AbstractLang}}{}{\begin{otherlanguage*}{#1}}%
 }{%
    \ifthenelse{\equal{\MainLang}{\AbstractLang}}{}{\end{otherlanguage*}}%
