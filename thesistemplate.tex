@@ -68,6 +68,7 @@
 \usepackage{amsfonts,amssymb,amsbsy,amsmath,bm}
 \usepackage{color, soul}
 \usepackage{pst-node, auto-pst-pdf}
+\usepackage{enumerate}
 %% Use the macros in this package to change how the hyperref package below 
 %% typesets its hypertext -- hyperlink colour, font, etc. See the package
 %% documentation. It also defines the \url macro, so use the package when 
@@ -170,7 +171,7 @@
 %% linebreak with the \\ control character. 
 %% Do not hyphenate titles.
 %% 
-\thesistitle{Directed acyclic graph causal inference \\ \small Applications in econometrics}
+\thesistitle{\mbox{Directed acyclic graph causal inference framework} and its applications in econometrics}
 
 \place{Espoo}
 
@@ -380,7 +381,7 @@ TEM        & transverse eletromagnetic
 
 Declaring causal inference has been for a long time debated area, in social sciences in general, and respectively in economics. It is naturally very interesting for scientists across the fields to establish more profound connections than correlation to events affecting their studies. It also works as a way for economists to have larger effect on society as it enables policy advises to have more solid foundation on the effects of particular policy changes studied and research to identify relations of the particular events that can be interpreted as causal.
 
-In this thesis I am going to give an overview on a one of such a methods that can be used to infer causal connections from data. This thesis will especially focus on the issue of how it could be applied in econometric applications specifically and what are the problems there is still to work out for it to be used if at all. The method discussed here, directed acyclic graph (DAG) causal inference, is a method used in multiple fields including computer science and epidemiology, but have had smaller role in social sciences. However in recent years there has been more interest also from these fields for example one of the main advocates of this method and scientist in computer science who have done lots of work with this method, Judea Pear and who --- quite strongly --- feels that DAG methods should be used also in economics (\cite{pearl_2014}) and Guido Imbens an economist have had some conversations over articles (\cite{Imbens2014}) about the suitability of the method in economics and social sciences.
+This thesis is ment to give an overview on a one of such a methods that can be used to infer causal connections from data. This thesis will especially focus on the issue of how it could be applied in econometric applications specifically and what are the problems there is still to work out for it to be used if at all. The method discussed here, directed acyclic graph (DAG) causal inference, is a method used in multiple fields including computer science and epidemiology, but have had smaller role in social sciences. However in recent years there has been more interest also from these fields for example one of the main advocates of this method and scientist in computer science who have done lots of work with this method, Judea Pear and who --- quite strongly --- feels that DAG methods should be used also in economics (\cite{pearl_2014}) and Guido Imbens an economist have had some conversations over articles (\cite{Imbens2014}) about the suitability of the method in economics and social sciences.
 
 To observe such relation between events that could be interpret as causal, usually some kind of \textit{counterfactual} must be formed, where some alternative reality differing from the observed world in which some of the causal factors have been changed. This is achieved by some model where the outcome is also differing from the observed world and in which we can then study the effects of changing those factors. This is also the case in directed acyclic graph approach. World which is formed in process is of course impossible to observe as it is by definition in someway differing from the existing world to show the different outcome and needs some model that tries to mimic it.
 
@@ -416,7 +417,7 @@ With paths it is possible define further relations, sometimes called kinship, fo
 
 \section{Directed acyclical graphs for statistics and causal inference}
 
-To make causal and statistical claims from DAGs some more definitions are needed 
+Graphs needs or at least most of the time are used with, some special mathematical machinery when those are applied for causal inference. This section will take an overview to statistical applications of graphs and especially Markovian or causal graphs by going through necessary, most fundamental tools to understand for causal applications of graphical models on conceptual level.
 
 \subsection{D-separation and independency}
 
@@ -436,7 +437,7 @@ To have independency with these conditions, model should also be Markovian and f
 Local Markov condition on the other hand is the condition that is needed to provide the independecy by d-separation and thus also translate the graphical properties of a graph to causal claim (\cite{Heckman2015}). LMC is telling us that the variables are independent of other ancestors they have, conditional on their parents. Formally defined LMC is:
 
 \begin{gather} \label{eq:lmc}
-    \forall V_{i}\in\vars\text{: }V_{i}\indep\vars\setminus\{D(V_{i})\cup \{V_{i}\}\}\,|\,\pa{V_{i}}
+    \forall V_{i}\in\vars\text{: }V_{i}\indep\vars\setminus\{\de{V_{i}}\cup \{V_{i}\}\}\,|\,\pa{V_{i}}
 \end{gather}
 
 Now with the LMC condition and graphoid statements (\cite{Dawid1979}) that needs to be met to have conditional independency and that Pearl and Paz found out to be met in undirected graphs (\cite{Paz1985}) it gets possible to attach statistical relevance for graphs. Graphoid statements were later also found out to be met in DAGs (\cite{Pearl1986}) which allows the use in this particular graphical approach discussed here.
@@ -466,15 +467,15 @@ To get familiar with do-calculus and the identification methods developed for DA
 
 \begin{enumerate}
     \item Insertion/deletion rule for observation:
-        \begin{gather}
+        \begin{gather} \label{eq:do1}
             Pr(y|do(x),z,w)=Pr(y|do(x),w)\text{ if }(Y\indep |X,W)_{\g_{\overline{X}}}
         \end{gather}
     \item Action/observation exchange:
-        \begin{gather}
+        \begin{gather} \label{eq:do2}
             Pr(y|do(x), do(z), w)=Pr(y|do(x),z,w)\text{ if }(Y\indep Z|X,W)_{\g_{\overline{X}\underline{Z}}}
         \end{gather}
     \item Insertion/deletion of action:
-        \begin{gather}
+        \begin{gather} \label{eq:do3}
             Pr(y|do(x),do(z),w)=Pr(y|do(x),z,w)\text{ if }(Y\indep Z|X,W)_{\g_{\overline{XZ(W)}}}
         \end{gather}
     \captionof{lcaption}{Do-calculus rules (\cite{Pearl2009a})}
@@ -482,13 +483,67 @@ To get familiar with do-calculus and the identification methods developed for DA
 
 \noindent There exists at least two different formulation of these rules (\cite{Jud1995};\cite{Pearl2009a}) which of I think these are the clearest and easiest to understand as well as more used in the literature.
 
-The reason why this set of rules exists at the first place is that as graphs have only limited number of identification methods there needs to be something to manipulate graphs towards satisfying those restrictions set for identification. 
+The reason why this set of rules exists at the first place is that as graphs have only limited number of identification methods there needs to be something to manipulate graphs towards satisfying those restrictions set for identification. Identification methods can still be applied to graph without any modification in situation where necessary conditions are met. For example graph in \ref{tab:npmodel} is already fulfilling conditions for \textit{the backdoor criterion}.
+
+\begin{itemize}
+    \item[] \textbf{The Backdoor Criterion:} In relation to ordered pair $(X,Y)$ in $\g$, set of variables $Z$ satisfies backdoor criterion if no node in $Z$ is a descendant of $X$ and $Z$ blocks all paths between $X$ and $Y$ containing arrow to $X$. When $\g$ satisfies these all of above mentioned criteria, causal effect is attained by backdoor adjustment: \\ 
+    (\cite{Pearl2016})
+    \begin{align}\label{eq:bd}
+        Pr(Y=y|do(X=x))=\sum_{z}Pr(Y=y|X=x,Z=z)Pr(Z=z)
+    \end{align}
+    With backdoor adjustment also inverse probability could be used with weighting the distribution with $Pr(X=x|Z=z)$.
+\end{itemize}
+
+\noindent This identification method can be applied to graph in Table \ref{tab:npmodel} and that will give the causal effect of $X$ to $Y$. In that graph the set of variables is only one variable $\{V_{3}\}$ that needs to be conditioned and by doing so and using the causal effect equation (\ref{eq:bd}) it can be measured as $\sum_{V3}Pr(Y|V3,X)Pr(V3)$ which is giving averaged joint distribution with $V_{3}$ conditioned. Other criteria that could be used and their adjustments are:
+
+\begin{itemize}
+    \item[] \textbf{The Frontdoor Criteria:} Set $Z$ satisfy frontdoor criterion relative to $(X,Y)$ when:
+    \begin{enumerate}
+        \item $Z$ intercepts all of the paths from $X$ to $Y$.
+        \item No unblocked paths from $X$ to $Z$.
+        \item All backdoor paths from $X$ to $Y$ are blocked by $X$.
+    \end{enumerate}
+    \vspace{-.2cm}
+    (\cite{Pearl2016})
+    in this case causal effect can be identified by adjustment formula:
+    \begin{align} \label{eq:fd}
+        \begin{split}
+            Pr(Y&=y|do(X=x)) \\ 
+            &=\sum_{z}\sum_{x'}Pr(Y=y|Z=z,X=x')Pr(X=x')Pr(Z=z|X=x)
+        \end{split}
+    \end{align}
+    \item[] \textbf{Z-identification:} $X$, $Y$, $Z$ being disjoint set of variables and $\g$ the causal graph containing those. Causal effect $Q=Pr(y|do(x))$ is $zID$ or z-identifiable in $\g$ if one of next conditions holds: \\
+    (\cite{Bareinboim2012})
+    \begin{enumerate}
+        \item Q is identifiable in $G$ (trivial condition).
+        \item There exists $Z'\subseteq Z$ such that next holds:
+        \begin{enumerate}[i.]
+            \item $X$ intercepts all directed paths from $Z'$ to $Y$.
+            \item Q is identifiable in $\g_{\overline{Z'}}$.
+        \end{enumerate}
+    \end{enumerate}
+\end{itemize}
+
+\noindent With these tools we can now understand the basics of identifying causal effects from graphs. Something to mention connected to these methods is that since graphical causal inference methods have largely been developed by computer scientist, there exists rather efficient algorithms to execute each method in practice, of course still bounded with the normal restrictions for algorithmic efficiency related to graphs.
+
+\clearpage
+
+\section{Applications and problems of DAG framework in econometric analysis}
+
+\subsection{Existing applications of DAG's in economic literature}
+
+For the most parts economic literature that is using DAG framework as empirical method is concentrated around time series data and modeling for example price drivers or contagion and transmission channels in international trade and financial applications and establishing Granger causality in chosen model (\cite{Awokuse2003};\cite{Bessler2003};\cite{Yang2006}). This literature is partly quite old and uses very basic form of DAG framework quite similar to the one discussed before in this thesis. However also some bit more recently published articles exist that covers very similar topics (\cite{Jayech2016};\cite{Ji2018}) and still with quite  similar methodological setup as those published in the early 2000s. 
+
+So strong representation of time series econometrics in association with DAG's is somewhat surprising considering that time series models are not so much featured in theoretical DAG literature and research considering that is usually more interested other kind of data than economic, or even the kind of data that could necessarily be applied in econometric settings. Interest of theoretical literary is more focused around data where time discretion is less problem, although the problem of those methods can be in solving the problem of discrete measurement frequency which produces only subsample of the real continuous data these models are not very applicable in time series econometrics due to the so much indefinite structures of that data. Those models also trying to establish "instantaneous" or "contemporaneous" relation which are faster than the measurement and differing from the models measuring the transition against the time change of variable or Granger causality that are used in economics (\cite{Hyttinen2017}). Also the Granger causality is problematic as a name for this method as it is not really a causal connection but rather just test of hypothesis with implications of such, rather than causality.
+
+
 
 %% Opinn\"aytteess\"a jokainen osa alkaa uudelta sivulta, joten \clearpage
 %%
 %% In a thesis, every section starts a new page, hence \clearpage
 \clearpage
 
+%\addcontentsline{toc}{section}{4References}
 \printbibliography
 
 \end{document}
