@@ -51,6 +51,7 @@
 \usepackage{comment}
 \usepackage{caption}
 \usepackage{capt-of}
+\usepackage{libertine}
 %\documentclass[english,12pt,a4paper,dvips]{aaltothesis}
 
 %% To the \documentclass above
@@ -68,7 +69,6 @@
 \usepackage{amsfonts,amssymb,amsbsy,amsmath,bm}
 \usepackage{color, soul}
 \usepackage{pst-node, auto-pst-pdf}
-\usepackage{enumerate}
 %% Use the macros in this package to change how the hyperref package below 
 %% typesets its hypertext -- hyperlink colour, font, etc. See the package
 %% documentation. It also defines the \url macro, so use the package when 
@@ -95,6 +95,7 @@
   }
 \usepackage{hyperref}
 \usepackage{csquotes}
+\usepackage{enumitem}
 \hypersetup{
     pdfpagemode=UseNone, 
     colorlinks=true,
@@ -302,14 +303,6 @@ $\e$ & set of edges $\{\epsilon_{1},\epsilon_{2},\ldots,\epsilon_{N}\}$ \\
 $\emptyset$ & graph with no nodes or vertices \\
 $\g$ & graph \\
 $\z$ & subset of graph
-\begin{comment}
-$\mathbf{B}$  & magnetic flux density  \\
-$c$              & speed of light in vacuum $\approx 3\times10^8$ [m/s]\\
-$\omega_{\mathrm{D}}$    & Debye frequency \\
-$\omega_{\mathrm{latt}}$ & average phonon frequency of lattice \\
-$\uparrow$       & electron spin direction up\\
-$\downarrow$     & electron spin direction down
-\end{comment}
 \end{tabular}
 
 \subsection*{Operators}
@@ -318,10 +311,10 @@ $\downarrow$     & electron spin direction down
 $\indep$ & independent \\
 $\nindep$ & not independent \\
 %$\dsep$ & d-separation \\
-$\pa{\circ}$ & parents of given node \\
-$\ch{\circ}$ & children of given node \\
-$\de{\circ}$ & descendants of given node \\
-$Pr(\circ)$ & probability
+$\pa{\bm{\cdot}}$ & parents of given node \\
+$\ch{\bm{\cdot}}$ & children of given node \\
+$\de{\bm{\cdot}}$ & descendants of given node \\
+$Pr(\bm{\cdot})$ & probability
 \begin{comment}
 $\nabla \times \mathbf{A}$              & curl of vectorin $\mathbf{A}$\\
 $\displaystyle\frac{\mbox{d}}{\mbox{d} t}$ & derivative with respect to 
@@ -339,15 +332,8 @@ $\mathbf{B}$
 DAG & directed acyclic graph \\
 DCG & directed cyclic graph \\
 SEM & structural equation model \\
-LMC & local Markov condition
-\begin{comment}
-AC         & alternating current \\
-APLAC      & an object-oriented analog circuit simulator and design tool \\
-           & (originally Analysis Program for Linear Active Circuits) \\
-BCS        & Bardeen-Cooper-Schrieffer \\ %% dash between the names
-DC         & direct current \\
-TEM        & transverse eletromagnetic
-\end{comment}
+LMC & local Markov condition \\
+IV         & intrumental variable
 \end{tabular}
 
 
@@ -396,6 +382,10 @@ However in DAG approach there also exists also many problems that have led to th
 
 \section{Overview of directed acyclic graphs} \label{section:overview}
 
+This section will take a look on the general structure of graphs as well as what kind of notations are used in accordance with graphs in general and in this thesis. First the basics of graphs as a general structure are gone through and the associated terms used also as a basis for the statistical interpretations and to get all the necessary concepts needed to understand first the framework and then to be able to understand the features either causing problems when used in economic or the ones that might benefit and advance econometric analysis. 
+
+Secondly the operators used to define further properties that make graphs useful in statistical sense are introduced. These are very generally applicable for graphs also outside the causal inference framework and are just properties that can be given for graphs just as a general mathematical objects. However the implications of those are highly important for further discussion and to understand the building blocks of the model.
+
 \subsection{Directed acyclic graph as structure}
 
 DAGs are at simplest just set containing variables $\vars$ that have some extra restrictions regarding the way nodes are connected withing the graph, but can in principle be any random variables otherwise. These restrictions are defining the set of possible relations for the variables of the graph in hand as well as defining not permitted structures in the topological path. Paths build up from the edges contained in $\e$ which contain the relational information of graph. Edges thus have in case of DAGs property of direction and information on the vertex where it begins as well as where it ends. Edges and directions of a graph are not symmetric relations in case of DAGs since $\e\subseteq V^2\setminus(i,i)$ where $\epsilon_i=(i,j)\neq(j,i)$ which is necessary but not sufficient condition for acyclicity. When the graph is directed it leads to the topological ordering necessarily being proceeding at every point and never having an edge leading backwards in order as Table \ref{tab:topological} shows (\cite{Peters2017}).
@@ -408,7 +398,7 @@ In this thesis specially directed and acyclic graphs are discussed and thus edge
 
 As graphs have additional conditions defined compared to normal set object there also exists operators that graphs has also defined for them. These operators are also necessary for the causal analysis as these give tools for analyze and define parts of graph differing from the rest.
 
-First concept to know is a path. Path in directed graph consists of variables that have consecutive edges connecting them so that for every variable in path $V_{i}\rightarrow V_{i+1}$, these of course also have role in causal inference as they describe the routes that causal relationships are influencing. Also tightly connected to paths are the colliders, which always exist in relation to the path. Collider of path is structure where aforementioned condition doesn't hold so $V_{i}\rightarrow V_{i-1}$. Example of such can be seen in Table \ref{tab:topological}s DAG where path from $V_{1}$ to $V_{3}$ has path $V_{1}\rightarrow V_{3}$ where no collider exist but the two other paths clearly has colliders as $V_{1}\rightarrow V_{2}\rightarrow V_{4}\rightarrow V_{5}\leftarrow V_{3}$ has $V_{5}$ as collider and $V_{1}\rightarrow V_{2}\rightarrow V_{4}\leftarrow V_{3}$ has $V_{4}$ as collider.
+First concept to know is a path. Path in directed graph consists of variables that have consecutive edges connecting them so that for every variable in path $V_{i}\rightarrow V_{i+1}$, these of course also have role in causal inference as they describe the routes that causal relationships are influencing. Also tightly connected to paths are the colliders, which always exist in relation to the path. Collider of path is structure where aforementioned condition doesn't hold so $V_{i}\rightarrow V_{i-1}$. Example of such can be seen in Table \ref{tab:topological} DAG where path from $V_{1}$ to $V_{3}$ has path $V_{1}\rightarrow V_{3}$ where no collider exist but the two other paths clearly has colliders as $V_{1}\rightarrow V_{2}\rightarrow V_{4}\rightarrow V_{5}\leftarrow V_{3}$ has $V_{5}$ as collider and $V_{1}\rightarrow V_{2}\rightarrow V_{4}\leftarrow V_{3}$ has $V_{4}$ as collider.
 
 Patch such as $V_{2}\leftarrow V_{1}\rightarrow V_{3}$ in Table \ref{tab:topological} is still further called fork as the middle node has two edges that are emerging from it. Path such as $V_{1}\rightarrow V_{3}\rightarrow V_{5}$ are called chains and in this type of path all edges are parallel.
 
@@ -418,7 +408,13 @@ With paths it is possible define further relations, sometimes called kinship, fo
 
 \section{Directed acyclical graphs for statistics and causal inference}
 
-Graphs needs or at least most of the time are used with, some special mathematical machinery when those are applied for causal inference. This section will take an overview to statistical applications of graphs and especially Markovian or causal graphs by going through necessary, most fundamental tools to understand for causal applications of graphical models on conceptual level.
+Graphs needs or at least most of the time are used with, some special mathematical machinery when those are applied for causal inference. This section will take an overview to statistical applications of graphs and especially Markovian or causal graphs by going through some of the most fundamental tools to understand for causal applications of graphical models on conceptual level.
+
+First part will be defining the way that DAG's brings together necessary conditions for conditional independency and provides the one of the most crucial concept for the statistical interpretation of dags, local Markov condition. With d-separation it is possible to isolate the necessary variables by conditioning the right set of variables and with the combination of these two we can start to make statistical sense withing graphs.
+
+With the help of local Markov condition it is now possible to get factorized probability out of the set of variables by conditioning the correct set of variables and for the first time everything told about the general structure, operators and methods will come together to make it possible for the graph to make sense in statistical sense. At this point it gets possible to define the model within which the causal analysis is going to operate.
+
+Third part then introduces the ways to identify causal effects between variables and introduces us to few of the most common strategies for that. In addition do-calculus which could be thought as one of the main factors behind the popularity of graphical methods in other fields is introduced at this point. This will cover the mathematical machinery and the rules associated with it after which main components of the DAG framework in its simplest is covered.
 
 \subsection{D-separation and independency}
 
@@ -441,7 +437,7 @@ Local Markov condition on the other hand is the condition that is needed to prov
     \forall V_{i}\in\vars\text{: }V_{i}\indep\vars\setminus\{\de{V_{i}}\cup \{V_{i}\}\}\,|\,\pa{V_{i}}
 \end{gather}
 
-Now with the LMC condition and graphoid statements (\cite{Dawid1979}) that needs to be met to have conditional independency and that Pearl and Paz found out to be met in undirected graphs (\cite{Paz1985}) it gets possible to attach statistical relevance for graphs. Graphoid statements were later also found out to be met in DAGs (\cite{Pearl1986}) which allows the use in this particular graphical approach discussed here.
+Now with the LMC condition and graphoid statements (\cite{Dawid1979}) (see appendix \ref{app:gmp}) that needs to be met to have conditional independency and that Pearl and Paz found out to be met in undirected graphs (\cite{Paz1985}) it gets possible to attach statistical relevance for graphs. Graphoid statements were later also found out to be met in DAGs (\cite{Pearl1986}) which allows the use in this particular graphical approach discussed here.
 
 \subsection{Statistical interpretation of directed acyclical graphs}
 
@@ -460,7 +456,9 @@ To start making sense of the model with data and having causal interpretation fo
 
 \input{npmodel}
 
-In this thesis my main focus will be the system developed by Judea Pearl and called \textit{do-calculus}. There exists also other approaches of which to mention system developed by economist James Heckman. His model uses approach, derived from Haavelmos work regarding causal inference (\cite{Haavelmo1943}; \cite{Haavelmo1944}) that is applied to graphs. However Heckmans model differs from the Pearls model, which has been more widely recognized and has more literature regarding both theory and applications, in certain applications but mostly it is way to attain same result with different methods. Important exception from this is instrumental variables which are not possible to identify within the framework Pearl suggests --- without more restrictions that would enable for example monotonicity of functions --- due to its fully non-parametric nature, but which are identifiable with Heckmans hypothetical model, derived from the original DAG. Also the philosophical framework on which causal identifications can be made differs slightly between these approaches.
+In this thesis my main focus will be the system developed by Judea Pearl and called \textit{do-calculus}. There exists also other approaches of which to mention system developed by economist James Heckman (\cite{Heckman2015}). His model uses approach, derived from Haavelmos work regarding causal inference (\cite{Haavelmo1943}; \cite{Haavelmo1944}) that is applied to graphs. However Heckmans model differs from the Pearls model, which has been more widely recognized and has more literature regarding both theory and applications, but mostly it is way to attain same result with different methods in a practical sense. Important exception from this is instrumental variables (IV) which are easier here than in the standard framework Pearl suggests --- without more restrictions that would enable for example monotonicity of functions --- due to its fully non-parametric nature. Also Heckman's model does not require other than standard statistical tools and which Heckman sees as a major benefit as he doesn't regard do-calculus very well defined as statistical concept. The philosophical framework on which causal identifications can be made also differs slightly between these approaches as do-calculus is in a way manipulating the existing model and hypothetical model creates another parallel model where inference is done.
+
+\subsection{Do-calculus and identification}
 
 Pearls approach includes the special notations and tools of do-calculus as he calls it. Do-calculus rules could be thought, to gain some intuition, to be similar in principle to other algebraic notations. By manipulating some expression with unwanted notations, in this case the do-notation, with the rules included in do-calculus we are able to get rid of those and change our expression so that it can be calculated with regular tools of probability theory. Thus it is just set of axioms which are applicable only in context of graph and changes do-statements to regular ordinary probabilities. One of the nice properties of do-calculus is that, originally Pearl only conjectured that only the three rules would be sufficient to find causal connections, but more recently it has been proven that indeed these rules are a complete system for finding causal connections (\cite{Shpitser2006}; \cite{Huang2006}). There are also rules that can be applied with less restrictive rules (\cite{Hyttinen2015}), but these approaches won't probably be as useful with economic applications as they are in machine learning applications, since the idea is to have rules to apply before declaring causal structure.
 
@@ -480,6 +478,7 @@ To get familiar with do-calculus and the identification methods developed for DA
             Pr(y|do(x),do(z),w)=Pr(y|do(x),z,w)\text{ if }(Y\indep Z|X,W)_{\g_{\overline{XZ(W)}}}
         \end{gather}
     \captionof{lcaption}{Do-calculus rules (\cite{Pearl2009a})}
+    \label{list:do}
 \end{enumerate}
 
 \noindent There exists at least two different formulation of these rules (\cite{Jud1995}; \cite{Pearl2009a}) which of I think these are the clearest and easiest to understand as well as more used in the literature.
@@ -494,6 +493,8 @@ The reason why this set of rules exists at the first place is that as graphs hav
     \end{align}
     With backdoor adjustment also inverse probability could be used with weighting the distribution with $Pr(X=x|Z=z)$.
 \end{itemize}
+
+\ref{itm:bd}
 
 \noindent This identification method can be applied to graph in Table \ref{tab:npmodel} and that will give the causal effect of $X$ to $Y$. In that graph the set of variables is only one variable $\{V_{3}\}$ that needs to be conditioned and by doing so and using the causal effect equation (\ref{eq:bd}) it can be measured as $\sum_{V3}Pr(Y|V3,X)Pr(V3)$ which is giving averaged joint distribution with $V_{3}$ conditioned. Other criteria that could be used and their adjustments are:
 
@@ -516,11 +517,11 @@ The reason why this set of rules exists at the first place is that as graphs hav
     \item[] \textbf{Z-identification:} $X$, $Y$, $Z$ being disjoint set of variables and $\g$ the causal graph containing those. Causal effect $Q=Pr(y|do(x))$ is $zID$ or z-identifiable in $\g$ if one of next conditions holds: \\
     (\cite{Bareinboim2012})
     \begin{enumerate}
-        \item Q is identifiable in $G$ (trivial condition).
+        \item Q is identifiable in $\g$ (this must trivially hold if identification is done).
         \item There exists $Z'\subseteq Z$ such that next holds:
         \begin{enumerate}[i.]
             \item $X$ intercepts all directed paths from $Z'$ to $Y$.
-            \item Q is identifiable in $\g_{\overline{Z'}}$.
+            \item $Q$ is identifiable in $\g_{\overline{Z'}}$.
         \end{enumerate}
     \end{enumerate}
 \end{itemize}
@@ -541,15 +542,41 @@ Already mentioned paper of Ji, Zhang and Geng (\cite{Ji2018}) is also example of
 
 The way those results are acquired, and the same goes for pretty much all of the articles are other time series econometric significance tests to test Granger causality and then finding the transmissions by DAG. DAG part is for other papers like Selma Jaytech's research on 2011 stock market crash is very straightforward application. It contains basically only the use of PC algorithm (\cite{Spirtes2000}) which is algorithm for identifying the statistically significance edges by having systematically going through those. In principle it works by testing $v_{i}\in\vars$ that each $v_{i}\indep v_{j}$ where $v_{j}\in\{\pa{v_{i}}\cup\ch{v_{i}}\}$ when $i\neq j$ with some statistical test depending on the nature of the nature of variable (e.g. for continuous and discrete different kind of tests are applied) and if so removing the edge between them. Then it goes on with the same setup, but adding conditioned variables one by one as $v_{i}\indep v_{j}|\{v_{1},v_{2},\ldots,v_{n}\}$ when $v_{1},v_{2},\ldots,v_{n}\in\{\vars\setminus\{v_{i}\cup\pa{v_{i}}\cup\ch{v_{i}}\}\}$ and deleting edges if this holds. For other parts the only thing these articles are taking from DAG framework is the basic structure and way to present the structure which is completely comprehensible with the knowledge provided in the section \ref{section:overview} and equation \ref{eq:lmc} provided earlier in thesis.
 % $v_{i},v_{j}\not\in\{v_{1},v_{2},\ldots,v_{n}\}$
-Also the fact that these are only establishing Granger causality between variables so analysis is just concentrated on correlations and thus none provides any economic usage of the identification tools that are associated with graphs, not to even mention use of do-calculus. Also as it is not intended to measure actual causality these graphs could probably not thought to fulfill the completeness requirement of causal inference in graphs. As an example the Selma Jaytech's paper is only using prince information of stocks and bonds from different countries as determining variables for other countries price variables. It of course could however be adequate model to make complete graph as the international asset markets are not some fully endogenous self defining system, but rather there is some exogenous factors that directs the movements. All of this might very well be sufficient for the purpose of the study, but at the same time it is making these studies, from the standpoint of graphical models and causal inference, not that great of an examples for the use of theoretical framework of DAG causal inference in economics. In other words these papers are using DAG's just as a way to present models visually and the PC algorithm as statistical test for the direction of flow of correlations in time, which makes the model kind of truncated and leaves lot on table for the part of DAG causal inference.
+Also the fact that these are only establishing Granger causality between variables so analysis is just concentrated on correlations and thus none provides any economic usage of the identification tools that are associated with graphs, not to even mention use of do-calculus. Also as it is not intended to measure actual causality these graphs could probably not thought to fulfill the completeness requirement of causal inference in graphs. As an example the Selma Jaytech's paper is only using prince information of stocks and bonds from different countries as determining variables for other countries price variables. It of course could however be adequate model to make complete graph as the international asset markets are not some fully endogenous self defining system, but rather there is some exogenous factors that directs the movements. All of this might very well be sufficient for the purpose of the study, but at the same time it is making these studies, from the standpoint of graphical models and causal inference, not that great of an examples for the use of theoretical framework of DAG causal inference in economics. In other words these papers are using DAG's just as a way to present models visually and the PC algorithm as statistical test for the direction of flow of correlations in time, which makes the model kind of truncated and leaves lot on table for the part of DAG causal inference. The way done here thus only uses the DAG methods for finding out the structure but not identifying the causality, since this setup is only able to measure Granger causality.
 
 \subsection{Theoretical problems for economic applications}
 
 It seems there isn't necessarily any one major theoretical property that would be a complete deal breaker of the use of DAG's in econometric analysis, and that has not been really the point of those who have been most skeptical on the use of DAG's for econometric causal analysis. Neither do I believe that for example Guido Imbens on his text about \textit{The Book of Why} (\cite{PearlMackenzie18}) is, despite quite critical view on the usefulness of this approach, to say that there would not be any usecases for it in economic literature.
 
-However Imbes, and many of his economist and econometrician colleagues still see many problems in using DAG's that can't be dismissed. Some of the problems are more technical in their nature and some more of a questions of taste and acquire habits like which one of the framework one happens to think is clearer on its notations potential outcomes or DAG's. I will first take  a look on the more technical side of these problems and discuss where DAG approach falls short on techniques used for econometrics and where DAG machinery might be beneficial. It should also be noted that DAG's or at least the formal notations of do-calculus are relatively new techniques and the research regarding those is very active, and some of the problems mentioned here might not be unsolved for very long.
+However Imbes, and many of his economist and econometrician colleagues still see many problems in using DAG's that can't be dismissed. Some of the problems are more technical in their nature and some more of a questions of taste and acquire habits like which one of the framework one happens to think is clearer on its notations potential outcomes or DAG's. I will first take  a look on the more technical side of these problems and discuss where DAG approach falls short on techniques used for econometrics and where DAG machinery might be beneficial. It should also be noted that DAG's or at least the formal notations of do-calculus are relatively new techniques and the research regarding those is very active, and some of the problems mentioned here might not remain unsolved for very long.
+
+One very evident lack in DAG's is that those cannot identify instrumental variables (IV) with methods that were introduced before and the framework is not very good for that use. This is immediate outcome to the fact that graphs are usually used as nonparametric models and the functional form of variables in model is unknown from the beginning. The fact that the functions are not restricted can and especially Pearl would in general argue is good thing and adding flexibility for the model. However in IV setup this can cause some additional headache as it also leads to there not being as straight forward way to set shape restrictions for functions, like monotonicity in case of IV-regression, which are needed to get the exact estimator. There exists workarounds and other solutions like getting bounds for average causal effect which is possible in nonparametric setting (\cite{Balke1997}). There is also active research considering techniques for identifying instrumental variables in graphs as well as other identifying methods in nonparametric settings (\cite{Freyberger2017}; \cite{Freyberger2015}). One very recent workingpaper (\cite{Hoeveid2021}) which show one way to identify IV, but this is applicable only under linearity. For the of IV also Pearl has noted that if variable in question can be reasoned to really be exogenous DAG might not be the right tool for the job (\cite{PearlMackenzie18}).
+
+This problem also extends further than only instrumental variables as in economics shape restricted functions are used in multiple places. Other occasions for restrictions might also be even more bounding as it is common for those restrictions to be consequence of economic theory, such as utility functions. Economic theory of course being the factor that is in a way differing it from other kind of more general statistics inclined towards social phenomenas and the framework through which it is possible to even study the causal structures as those need the substantive knowledge of topic to have even possibility to be interpreted as causal inference at all. 
+
+\input{equilibrium}
+
+Another thing that is not easily applicable in DAG's is the equilibrium condition, unfortunately something quite crucial in economics. This is also immediate result from the definition of these graphs and even their name as acyclic. Equilibrium is very clearly resulting to cycle in graph as seen in figure \ref{fig:equilibrium} which is conceptualizing very simple equilibrium condition with only two exogenous variables defining interacting, endogenous variables that could be thought as price and quantity. However this is something that has been noted on other disciplines as well and thus also this is something under very active research. There has already been some research on cyclic graphs that have been able to prove the case for linear-SEM that it leads to global Markov property (see appendix \ref{app:gmp}) which is basically generalization from local Markov property extended to cover, in additin to variables also subsets of variables in directed graph (\cite{PeterSpirtes1994}).
+
+Most recent and most ambitious tries in a sense that it has tried to solve both cyclical components of graphs and latent confounders is made by Forré and Mooij (\cite{Forre2017}; \cite{Forre2018}; \cite{Forre2019}) in a way that still retains the Markovian properties for graph and enables non-linear functional forms. Forré and Mooij are proposing two differing models that they are calling modular-SEM (mSEM) and conditioned version of that input/output-SEM (ioSEM) that would take care at least some of those problems. The basic idea for the both of these models is to generalize methods that were presented before. By introducing these new class of graphs like hyperedged (hyperedged graph is generalization of normal graph that allows edges to connect multiple nodes) directed graphs which contains both, directed and undirected graphs in parallel as embedded in the same model. Forré and Mooij are able to generalise methods like d-separation used in normal DAG to what they call $\sigma$-separation (\cite{Forre2017}) which is having same effect for more generalized types of graphs but which can be considered as extension of d-separation as it reduces to effectively same method as it when applied DAG. By doing these changes Forré and Mooij are able to generalize the separation algorithm providing representation for conditional independencies in a model which includes cycles as well as conditions for applying mSEM with the graphs (\cite{Forre2017}; \cite{Forre2018}). And then make even further modification to applied rules sot that any distributions and nonlinear functional forms are applicable as well as generalized versions of identifying algorithms (equations \ref{item:bd}, \ref{item:fd}, \& \ref{item:zid}) as well as generalized version of do-calculus (\ref{eq:do1}, \ref{eq:do2}, \ref{eq:do3}) (\cite{Forre2019}) although it should be noted that this work is still at the working paper stage rather than fully published. This kind of modified models, if those can be well implemented, could make a big difference for economic uses as it would allow equilibrium modeling so crucial for economists.
+
+\subsection{Advantages and possibilities of graphical models in econometrics}
+
+As economic papers are not usually written just to be read by other economists, and this is something that is very applicable to empirical papers and causal inference. Causal inference is many time done in settings which have also policy implications e.g. finding out how some subsidy is effecting and especially in those cases it might be beneficial to be able to present the models and variables with their connections as simply as possible. For this DAG's are very clear and intuitive way at least for people with no experience with statistics. However this also comes with the obvious cost of being very simplified version of what is happening so argument also goes other ways around and someone with lots of knowledge with statistical methods might find algebraic expressions as more explicit way to communicate models. 
+
+This clarity also extends to estimating models. If some very complicated structural model with many variables is estimated with for example potential outcomes framework proofs can get very complicated when complicated SEM's are applied. In DAG's those are quite easy to show with identification methods and for the many of the most usual identification method there exists complete algorithm that can do the job and as those are already prove to be complete like the algorithm to find efficient sets for back door criteria (\ref{eq:bd}) even in a bit more generalized fashion (\cite{Correa2017}). This saves user of model from doing the more technical work and instead lets researcher to focus improving the causal structure and estimating results.
 
 
+
+\clearpage
+
+\section{Discussion}
+
+
+
+\clearpage
+
+\section{Conclusion}
 
 %% Opinn\"aytteess\"a jokainen osa alkaa uudelta sivulta, joten \clearpage
 %%
@@ -558,5 +585,21 @@ However Imbes, and many of his economist and econometrician colleagues still see
 
 \addcontentsline{toc}{section}{References}
 \printbibliography
+\clearpage
+
+\section*{Appendix} \addcontentsline{toc}{section}{Appendix}
+
+\subsection*{Graphoids} \label{app:gmp} \addcontentsline{toc}{subsection}{Graphoids} 
+
+\subsection*{Global Markov property} \label{app:gmp} \addcontentsline{toc}{subsection}{Global Markov property} 
+
+Global Markov property is generalization of local Markov property where the independency is guaranteed for any subsets of variables within graph that are wholly separated from each other by third subset of variables.
+
+\begin{itemize}
+    \item[] For distribution $\mu(\bm{\cdot})$ subset of nodes $X$ and $Y$ separated by $Z$ in $\g$.
+    \begin{gather*}
+        \mu(v_{X}, v_{Y}|v_{Z})=\mu(v_{X}|v_{Z})\mu(v_{Y}|v_{Z})
+    \end{gather*}
+\end{itemize}
 
 \end{document}

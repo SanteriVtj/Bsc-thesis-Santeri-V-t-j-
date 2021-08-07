@@ -1,0 +1,15 @@
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \node (1) at (0,0) {$V_1$};
+        \node (2) at (4.5,0) {$V_2$};
+        \node (3) at (1.5,0) {$V_3$};
+        \node (4) at (3,0) {$V_4$};
+        \draw[->]  (1) edge (3);
+        \draw[->]  (2) edge (4);
+        \draw[->, bend right]  (4) edge (3);
+        \draw[->, bend right]  (3) edge (4);
+    \end{tikzpicture}
+    \caption{Graph with equilibrium making it DCG.}
+    \label{fig:equilibrium}
+\end{figure}
