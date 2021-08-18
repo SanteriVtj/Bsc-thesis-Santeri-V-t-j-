@@ -168,7 +168,7 @@
 \immediate\write\@auxout{\string\setcounter{NInitPages}{\arabic{page}-1}}%
 }%
 \AtEndDocument{%
-\immediate\write\@auxout{\string\setcounter{NMainPages}{\thepage}}%
+\immediate\write\@auxout{\string\setcounter{NMainPages}{\thepage-1}}%
 }%
 %
 %%%%%%% Default fonts: Latin Modern (LC 24.9.2015)

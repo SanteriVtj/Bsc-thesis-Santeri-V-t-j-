@@ -1,20 +1,22 @@
 \vspace{.5cm}
 \begin{table}[h]
     \centering
-    \begin{tabular}{cc}
-        \begin{tikzpicture}
-            \node (1) at (0,0) {$X$};
-            \node (2) at (3,0) {$Y$};
-            \node (3) at (1.5,0) {$V_1$};
-            \node (4) at (0,1.5) {$V_2$};
-            \node (5) at (3,1.5) {$V_3$};
-            \draw[->]  (1) edge (3);
-            \draw[->]  (3) edge (2);
-            \draw[->]  (4) edge (1);
-            \draw[->]  (4) edge (5);
-            \draw[->]  (5) edge (1);
-            \draw[->]  (5) edge (2);
-        \end{tikzpicture}
+    \begin{tabular}{c|c}
+        \begin{adjustbox}{valign=c}
+            \begin{tikzpicture}
+                \node[circle, draw] (1) at (0,0) {$X$};
+                \node[circle, draw] (2) at (4,0) {$Y$};
+                \node[circle, draw] (3) at (2,0) {$V_1$};
+                \node[circle, draw] (4) at (0,2.5) {$V_2$};
+                \node[circle, draw] (5) at (4,2.5) {$V_3$};
+                \draw[-{Latex[length=2mm]}]  (1) edge (3);
+                \draw[-{Latex[length=2mm]}]  (3) edge (2);
+                \draw[-{Latex[length=2mm]}]  (4) edge (1);
+                \draw[-{Latex[length=2mm]}]  (4) edge (5);
+                \draw[-{Latex[length=2mm]}]  (5) edge (1);
+                \draw[-{Latex[length=2mm]}]  (5) edge (2);
+            \end{tikzpicture}
+        \end{adjustbox}
         \hspace{1cm}
         &
         \hspace{1cm}
