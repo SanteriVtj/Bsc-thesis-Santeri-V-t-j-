@@ -136,15 +136,15 @@
 %%%%%%% Set up the page layout %%%%%%%
 %% First the horizontal dimensions %%
 \setlength{\hoffset}{-1in}
-\setlength{\oddsidemargin}{35mm}
-\setlength{\evensidemargin}{25mm}
-\setlength{\textwidth}{15cm}
+\setlength{\oddsidemargin}{20mm}
+\setlength{\evensidemargin}{20mm}
+\setlength{\textwidth}{17cm}
 %% Then the vertical dimensions
 \setlength{\voffset}{-1in}
 \setlength{\headsep}{7mm}
 \setlength{\headheight}{1em}
 \setlength{\topmargin}{25mm-\headheight-\headsep}
-\setlength{\textheight}{23cm}
+\setlength{\textheight}{24.7cm}
 %
 %%%%%%% Float control %%%%%%%
 \renewcommand{\floatpagefraction}{0.1}%

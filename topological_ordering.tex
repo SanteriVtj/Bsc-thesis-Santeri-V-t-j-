@@ -1,42 +1,41 @@
-\vspace{.5cm}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{c|c}
-        \begin{adjustbox}{valign=c}
-            \begin{tikzpicture}
-                \node[circle, draw] (1) at (0,0) {$V_1$};
-                \node[circle, draw] (2) at (2,1) {$V_2$};
-                \node[circle, draw] (3) at (2,-1) {$V_3$};
-                \node[circle, draw] (4) at (4,1) {$V_4$};
-                \node[circle, draw] (5) at (4,-1) {$V_5$};
-                \draw[-{Latex[length=2mm]}]  (1) edge (2);
-                \draw[-{Latex[length=2mm]}]  (1) edge (3);
-                \draw[-{Latex[length=2mm]}]  (2) edge (4);
-                \draw[-{Latex[length=2mm]}]  (3) edge (5);
-                \draw[-{Latex[length=2mm]}]  (3) edge (4);
-                \draw[-{Latex[length=2mm]}]  (4) edge (5);
-            \end{tikzpicture}
-        \end{adjustbox}
-        \hspace{1cm}
-        &
-        \hspace{1cm}
-        \begin{adjustbox}{valign=c}
-            \begin{tikzpicture}
-                \node[circle, draw] (1) at (0,0) {$V_1$};
-                \node[circle, draw] (2) at (1.5,0) {$V_2$};
-                \node[circle, draw] (3) at (3,0) {$V_3$};
-                \node[circle, draw] (4) at (4.5,0) {$V_4$};
-                \node[circle, draw] (5) at (6,0) {$V_5$};
-                \draw[-{Latex[length=2mm]}]  (1) edge (2);
-                \draw[-{Latex[length=2mm]},bend right]  (1) edge (3);
-                \draw[-{Latex[length=2mm]},bend right]  (3) edge (5);
-                \draw[-{Latex[length=2mm]},bend left]  (2) edge (4);
-                \draw[-{Latex[length=2mm]}]  (3) edge (4);
-                \draw[-{Latex[length=2mm]}]  (4) edge (5);
-            \end{tikzpicture}
-        \end{adjustbox}
-    \end{tabular}
-    \caption{DAG and its topological ordering. If graph on left side would contain cycle it would be directed cyclic graph (DCG) and topological ordering would not be possible due to loop.}
-    \label{tab:topological}
-\end{table}
-\vspace{.5cm}
+\begin{figure}[h]
+    \begin{center}
+        \begin{tabular}{c|c}
+            \begin{adjustbox}{valign=c}
+                \begin{tikzpicture}
+                    \node[circle, draw] (1) at (0,0) {$V_1$};
+                    \node[circle, draw] (2) at (2,1) {$V_2$};
+                    \node[circle, draw] (3) at (2,-1) {$V_3$};
+                    \node[circle, draw] (4) at (4,1) {$V_4$};
+                    \node[circle, draw] (5) at (4,-1) {$V_5$};
+                    \draw[-{Latex[length=2mm]}]  (1) edge (2);
+                    \draw[-{Latex[length=2mm]}]  (1) edge (3);
+                    \draw[-{Latex[length=2mm]}]  (2) edge (4);
+                    \draw[-{Latex[length=2mm]}]  (3) edge (5);
+                    \draw[-{Latex[length=2mm]}]  (3) edge (4);
+                    \draw[-{Latex[length=2mm]}]  (4) edge (5);
+                \end{tikzpicture}
+            \end{adjustbox}
+            \hspace{1cm}
+            &
+            \hspace{1cm}
+            \begin{adjustbox}{valign=c}
+                \begin{tikzpicture}
+                    \node[circle, draw] (1) at (0,0) {$V_1$};
+                    \node[circle, draw] (2) at (1.5,0) {$V_2$};
+                    \node[circle, draw] (3) at (3,0) {$V_3$};
+                    \node[circle, draw] (4) at (4.5,0) {$V_4$};
+                    \node[circle, draw] (5) at (6,0) {$V_5$};
+                    \draw[-{Latex[length=2mm]}]  (1) edge (2);
+                    \draw[-{Latex[length=2mm]},bend right]  (1) edge (3);
+                    \draw[-{Latex[length=2mm]},bend right]  (3) edge (5);
+                    \draw[-{Latex[length=2mm]},bend left]  (2) edge (4);
+                    \draw[-{Latex[length=2mm]}]  (3) edge (4);
+                    \draw[-{Latex[length=2mm]}]  (4) edge (5);
+                \end{tikzpicture}
+            \end{adjustbox}
+        \end{tabular}
+        \caption{DAG and its topological ordering. If graph on left side would contain cycle it would be directed cyclic graph (DCG) and topological ordering would not be possible due to loop.}
+        \label{fig:topological}
+    \end{center}
+\end{figure}
