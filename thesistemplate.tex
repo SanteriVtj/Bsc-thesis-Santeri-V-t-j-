@@ -540,7 +540,7 @@ The reason why this set of rules exists at the first place is that as graphs hav
     \end{enumerate}
 \end{itemize}
 
-These criterion are in essence very similar to backdoor criterion on applicational level. Do calculus is a bit different as it is not really identification method in a same sense, but rule book by which the expression can be modified to fulfill such. Graph in figure (\ref{fig:do example}) for example has two backdoor paths going through $V_{1}$ as there exists now this unobservable $U_1$  and with that the causal effect could be calculated by conditioning on $V_1$.
+These criterion are in essence very similar to backdoor criterion on applicational level. Do calculus is a bit different as it is not really identification method in a same sense, but rule book by which the expression can be modified to fulfill such. Graph in figure \ref{fig:do example} for example has two backdoor paths going through $V_{1}$ as there exists now this unobservable $U_1$  and with that the causal effect could be calculated by conditioning on $V_1$. Note that even though figure \ref{fig:do example} is showing also Heckman's hypothetical model all of the calculations are done with Pearl's do-calculus notation and right side of the model is not used in this example.
 
 \input{do-example}
 
@@ -548,7 +548,7 @@ These criterion are in essence very similar to backdoor criterion on application
     Pr(y|do(x))=Pr(y|do(x),v_1)Pr(v_1|do(x)) \label{eq:ex1}
 \end{gather}
 
-\noindent This by itself however isn't sufficient expression to be actually estimated. However it is still possible to change the expression (\ref{eq:ex1}) so that it can be evaluated by do-calculus.
+\noindent This by itself however isn't sufficient expression to be actually estimated. However it is still possible to change the expression \ref{eq:ex1} so that it can be evaluated by do-calculus.
 
 \begin{align}
     \sum_{v_1}Pr(y|do(x), v_1)Pr(v_1|do(x))&=\sum_{v_1}Pr(y|x, v_1)Pr(v_1|do(x)) \label{eq:ex2} \\

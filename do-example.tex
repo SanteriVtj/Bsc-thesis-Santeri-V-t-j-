@@ -1,19 +1,46 @@
-\begin{figure}[h]
-    \centering
-    \begin{tikzpicture}
-        \node[circle,draw] (1) at (4,2.5) {$X$};
-        \node[circle,draw] (2) at (0,0) {$Y$};
-        \node[circle,draw] (3) at (4,0) {$V_2$};
-        \node[circle,draw] (4) at (0,2.5) {$V_1$};
-        \node[circle,draw,dashed] (5) at (2, 3.5) {$U_{1}$};
-        \draw[-{Latex[length=2mm]}]  (1) edge (2);
-        \draw[-{Latex[length=2mm]}]  (1) edge (3);
-        \draw[-{Latex[length=2mm]}]  (4) edge (1);
-        \draw[-{Latex[length=2mm]}]  (4) edge (2);
-        \draw[-{Latex[length=2mm]}]  (3) edge (2);
-        \draw[dashed, -{Latex[length=2mm]}]  (5) edge (1);
-        \draw[dashed, -{Latex[length=2mm]}]  (5) edge (4);
-    \end{tikzpicture}
-    \caption{Graph containing unobserved variable $U_1$.}
+\begin{figure}
+        \begin{center}
+            \begin{tabular}{c|c}
+                \begin{adjustbox}{valign=c}
+                    \centering
+                    \begin{tikzpicture}
+                        \node[circle,draw] (1) at (4,2.5) {$X$};
+                        \node[circle,draw] (2) at (0,0) {$Y$};
+                        \node[circle,draw] (3) at (4,0) {$V_2$};
+                        \node[circle,draw] (4) at (0,2.5) {$V_1$};
+                        \node[circle,draw,dashed] (5) at (2, 3.5) {$U_{1}$};
+                        \draw[-{Latex[length=2mm]}]  (1) edge (2);
+                        \draw[-{Latex[length=2mm]}]  (1) edge (3);
+                        \draw[-{Latex[length=2mm]}]  (4) edge (1);
+                        \draw[-{Latex[length=2mm]}]  (4) edge (2);
+                        \draw[-{Latex[length=2mm]}]  (3) edge (2);
+                        \draw[dashed, -{Latex[length=2mm]}]  (5) edge (1);
+                        \draw[dashed, -{Latex[length=2mm]}]  (5) edge (4);
+                    \end{tikzpicture}
+                \end{adjustbox}
+                \hspace{1cm}
+                &
+                \hspace{1cm}
+                \begin{adjustbox}{valign=c}
+                    \centering
+                    \begin{tikzpicture}
+                        \node[circle,draw] (1) at (4,2.5) {$X$};
+                        \node[circle,draw] (2) at (0,0) {$Y$};
+                        \node[circle,draw] (3) at (4,0) {$V_2$};
+                        \node[circle,draw] (4) at (0,2.5) {$V_1$};
+                        \node[circle,draw,dashed] (5) at (2, 3.5) {$U_{1}$};
+                        \node[circle,draw] (6) at (2,1.5) {$\tilde X$};
+                        \draw[-{Latex[length=2mm]}]  (6) edge (2);
+                        \draw[-{Latex[length=2mm]}]  (6) edge (3);
+                        \draw[-{Latex[length=2mm]}]  (4) edge (1);
+                        \draw[-{Latex[length=2mm]}]  (4) edge (2);
+                        \draw[-{Latex[length=2mm]}]  (3) edge (2);
+                        \draw[dashed, -{Latex[length=2mm]}]  (5) edge (1);
+                        \draw[dashed, -{Latex[length=2mm]}]  (5) edge (4);
+                    \end{tikzpicture}
+                \end{adjustbox}
+            \end{tabular}
+        \end{center}
+    \caption{Graphs with two backdoor paths. Left on is showing empirical graph on which Pearls model operates. Right is Heckmans addition to model showing hypothetical model where value of $X$ is changed.}
     \label{fig:do example}
 \end{figure}
