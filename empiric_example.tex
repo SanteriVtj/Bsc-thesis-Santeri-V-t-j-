@@ -8,32 +8,32 @@
         \node[draw] (5) at (4,2) {Japan};
         \node[draw] (6) at (5,0) {Canada};
         \node[draw] (7) at (6,1) {France};
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (1) edge (2);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (1) edge (3);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (1) edge (4);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (1) edge (5);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (1) edge (6);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (1) edge (7);
+        \draw[-]  (1) edge (2);
+        \draw[-]  (1) edge (3);
+        \draw[-]  (1) edge (4);
+        \draw[-]  (1) edge (5);
+        \draw[-]  (1) edge (6);
+        \draw[-]  (1) edge (7);
         
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (2) edge (3);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (2) edge (4);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (2) edge (5);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}, bend left]  (2) edge (6);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (2) edge (7);
+        \draw[-]  (2) edge (3);
+        \draw[-]  (2) edge (4);
+        \draw[-]  (2) edge (5);
+        \draw[-, bend left]  (2) edge (6);
+        \draw[-, bend left]  (2) edge (7);
         
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (3) edge (4);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (3) edge (5);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (3) edge (6);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (3) edge (7);
+        \draw[-]  (3) edge (4);
+        \draw[-]  (3) edge (5);
+        \draw[-]  (3) edge (6);
+        \draw[-]  (3) edge (7);
         
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (4) edge (5);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (4) edge (6);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (4) edge (7);
+        \draw[-]  (4) edge (5);
+        \draw[-]  (4) edge (6);
+        \draw[-]  (4) edge (7);
         
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (5) edge (6);
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (5) edge (7);
+        \draw[-]  (5) edge (6);
+        \draw[-]  (5) edge (7);
         
-        \draw[{Latex[length=2mm]}-{Latex[length=2mm]}]  (6) edge (7);
+        \draw[-]  (6) edge (7);
         
         \draw[-{Stealth[length=4mm, width=2.5mm]},black] (7,1.25) -- ( $ (7,1.25)!1!(8.5,1.25) $ ) node [midway, sloped, above] {PC-algorithm};
         
@@ -56,6 +56,6 @@
         \draw[-{Latex[length=2mm]}]  (6) edge (3);
         \draw[-{Latex[length=2mm]}]  (6) edge (5);
     \end{tikzpicture}
-    \caption{Recreation of graph from \textit{International transmission of inflation among G-7 countries} (\cite{Yang2006}). First graph is complete or has all edges on place while second shows the graph after PC-algorithm with 5\% significance.}
+    \caption{Recreation of graph from \textit{International transmission of inflation among G-7 countries: A data-determined VAR analysis Jian} (\cite{Yang2006}). First graph is complete or has all edges on place while second shows the graph after PC-algorithm with 5\% significance.}
     \label{fig:empiric}
 \end{figure}
